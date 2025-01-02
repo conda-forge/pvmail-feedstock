@@ -6,12 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: ec24fbda9043c937fd07d0589f52b0fb424cf6ba5389f770d9ae7304f7fca255
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
   entry_points:
     - pvMail = PvMail.cli:main
     - pvMail_mail_test = PvMail.mailer:main
@@ -20,12 +20,12 @@ build:
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
     - setuptools >=64.0
     - setuptools-scm >=8
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - pydm
     - pyepics
     - pyqt =5
@@ -42,6 +42,7 @@ test:
     - pvMail_mail_config_file
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://BCDA-APS.github.io/pvMail
